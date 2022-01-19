@@ -1,5 +1,6 @@
 package app.model;
 
+import javax.validation.constraints.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,28 +9,33 @@ public class User {
 
     private int id;
 
-  //  @Size(min = 2 , message = "name must be min 2 symbols")
+    @Size(min = 2 , message = "name must be min 2 symbols")
     private String name;
 
-  //  @Size(min = 2 , message = "name must be min 2 symbols")
+    @Size(min = 2 , message = "name must be min 2 symbols")
     private String surname;
 
-  //  @Max(value = 140, message = "must be less than 140")
-   // @Min(value = 1, message = "must be more than 0")
+    @Max(value = 140, message = "must be less than 140")
+    @Min(value = 1, message = "must be more than 0")
     private int age;
 
-   // @NotBlank(message = "sex is required field")
+    @NotBlank(message = "sex is required field")
     private String sex;
 
     private String haveChildren;
+
     private String[] language;
 
-   // @Pattern(regexp = "\\d{3}-\\d{3}-\\d{2}-\\d{2}", message = "please use regex")
+    @Pattern(regexp = "\\d{3}-\\d{3}-\\d{2}-\\d{2}", message = "please use regex XXX-XXX-XX-XX")
     private String phoneNumber;
 
+    @NotBlank(message = "emale is required field")
     private String emale;
+
     private Map<String,String> sexs;
+
     private Map<String,String> haveChildrens;
+
     private Map<String,String> languages;
 
     public User(){
