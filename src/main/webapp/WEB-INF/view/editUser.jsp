@@ -5,7 +5,7 @@
     <title>Add new User</title>
 </head>
 <body>
-<form:form action="showUser" modelAttribute="newUser">
+<form:form action="editUserOk" modelAttribute="newUser">
 
     Name <form:input path="name"/>
     <form:errors path="name"/>

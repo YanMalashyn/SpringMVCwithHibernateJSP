@@ -1,40 +1,70 @@
 package app.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+@Entity
+@Table(name = "UserJSP")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column
     @Size(min = 2 , message = "name must be min 2 symbols")
     private String name;
 
+    @Column
     @Size(min = 2 , message = "name must be min 2 symbols")
     private String surname;
 
+    @Column
     @Max(value = 140, message = "must be less than 140")
     @Min(value = 1, message = "must be more than 0")
     private int age;
 
+    @Column
     @NotBlank(message = "sex is required field")
     private String sex;
 
+    @Column
     private String haveChildren;
 
-    private String[] language;
 
+   // private String[] language;
+
+    @Column
     @Pattern(regexp = "\\d{3}-\\d{3}-\\d{2}-\\d{2}", message = "please use regex XXX-XXX-XX-XX")
     private String phoneNumber;
 
+    @Column
     @NotBlank(message = "emale is required field")
     private String emale;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "sex_mapping",
+            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "sex_name")
+    @Column(name = "sexs")
     private Map<String,String> sexs;
 
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "haveChildrens_mapping",
+            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "haveChildrens_name")
+    @Column(name = "haveChildrens")
     private Map<String,String> haveChildrens;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable( name = "languages_mapping",
+            joinColumns = {@JoinColumn(name = "order_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "languages_name")
+    @Column(name = "languages")
 
     private Map<String,String> languages;
 
@@ -133,13 +163,13 @@ public class User {
         this.haveChildrens = haveChildrens;
     }
 
-    public String[] getLanguage() {
-        return language;
-    }
+//    public String[] getLanguage() {
+//        return language;
+//    }
 
-    public void setLanguage(String[] language) {
-        this.language = language;
-    }
+//    public void setLanguage(String[] language) {
+//        this.language = language;
+//    }
 
     public Map<String, String> getLanguages() {
         return languages;
@@ -158,7 +188,6 @@ public class User {
                 ", age=" + age +
                 ", sex='" + sex + '\'' +
                 ", haveChildren='" + haveChildren + '\'' +
-                ", language=" + Arrays.toString(language) +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", emale='" + emale + '\'' +
                 ", sexs=" + sexs +
